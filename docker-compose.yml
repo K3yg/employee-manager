@@ -1,0 +1,23 @@
+services:
+  client:
+    build: ./client
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+    container_name: employee-client
+
+  server:
+    build: ./server
+    ports:
+      - "8000:8000"
+    depends_on:
+      - employee-db
+    container_name: employee-server
+
+  employee-db:
+    image: mongo
+    container_name: employee-mongo
+    ports:
+      - "27017:27017"
+    mem_limit: 512m
